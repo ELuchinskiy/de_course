@@ -22,5 +22,5 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ghcr.io/ELuchinskiy/airflow-image .
-          docker push ghcr.io/ELuchinskiy/airflow-image
+          docker build -t ghcr.io/eluchinskiy/airflow-image .
+          docker push ghcr.io/eluchinskiy/airflow-image
