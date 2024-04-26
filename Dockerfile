@@ -10,6 +10,7 @@ ENV AIRFLOW_HOME=/usr/local/airflow
 ENV PATH=/root/.local/bin:$PATH
 
 # Copy Airflow configuration file
+COPY docker-compose.yml /app/docker-compose.yml
 COPY airflow.cfg /usr/local/airflow/airflow.cfg
 COPY lab05.py /usr/local/airflow/dags/lab05.py
 
@@ -19,3 +20,5 @@ RUN pip install --no-cache-dir --user "apache-airflow[postgres]==2.5.1" --constr
 
 # Set the working directory
 WORKDIR /usr/local/airflow
+
+CMD ["docker-compose", "up"]
