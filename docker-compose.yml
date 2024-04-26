@@ -1,0 +1,46 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres:14.2"
+    container_name: "postgres"
+    environment:
+      - POSTGRES_USER=airflow
+      - POSTGRES_PASSWORD=airflow
+      - POSTGRES_DB=airflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  # удали/закомментируй меня после первого запуска
+  airflow-initdb:
+    build: .
+    depends_on:
+      - postgres
+    entrypoint: airflow db init
+
+  airflow-webserver:
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+    ports:
+      - "8080:8080"
+    entrypoint: airflow webserver
+
+  airflow-scheduler:
+    build: .
+    restart: always
+    depends_on:
+      - postgres
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+    entrypoint: airflow scheduler
+
+  lab05-redis:
+    image: "redis:7.0.0"
+    container_name: "lab05-redis"
+    ports:
+      - "6379:6379"
