@@ -10,7 +10,7 @@ ENV AIRFLOW_HOME=/usr/local/airflow
 ENV PATH=/root/.local/bin:$PATH
 
 # Copy Airflow configuration file
-COPY docker-compose.yml /app/docker-compose.yml
+COPY docker-compose.yml /usr/local/airflow/docker-compose.yml
 COPY airflow.cfg /usr/local/airflow/airflow.cfg
 COPY lab05.py /usr/local/airflow/dags/lab05.py
 
